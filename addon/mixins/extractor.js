@@ -61,10 +61,10 @@ export default Ember.Mixin.create({
     if (value && value.href) {
       // If we already have the model, just link it
       var model = singularize(camelize(value.type));
-      if (store.getById(model, value.id)) {
+      if (this.store.getById(model, value.id)) {
         this.extractSingleIdLink(hash, link, newKey, value.id, relationshipIsPolymorphic);
       } else {
-        var namespace = type.store.adapterFor(type).namespace;
+        var namespace = this.store.adapterFor(type).namespace;
         hash.links[newKey] = '/' + namespace + value.href;
         if (newKey !== link) delete hash.links[link];
       }
