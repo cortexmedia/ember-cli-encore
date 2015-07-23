@@ -61,7 +61,7 @@ export default Ember.Mixin.create({
     if (value && value.href) {
       // If we already have the model, just link it
       var model = singularize(camelize(value.type));
-      if (this.store.getById(model, value.id)) {
+      if (this.store.peekRecord(model, value.id)) {
         this.extractSingleIdLink(hash, link, newKey, value.id, relationshipIsPolymorphic);
       } else {
         var namespace = this.store.adapterFor(type).namespace;
