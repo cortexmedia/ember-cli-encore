@@ -42,15 +42,15 @@ export default Ember.Mixin.create({
     return this._super(store, type, payload, id, requestType);
   },
 
-  extractLinks: function(store, type, hash) {
+  extractLinks: function(type, hash) {
     for (var link in hash.links) {
-      this.extractSingleLink(store, type, hash, link);
+      this.extractSingleLink(type, hash, link);
     }
 
     if (Ember.keys(hash.links).length === 0) delete hash.links;
   },
 
-  extractSingleLink: function(store, type, hash, link) {
+  extractSingleLink: function(type, hash, link) {
     var newKey = camelize(link);
     var value = hash.links[link];
 
@@ -104,7 +104,7 @@ export default Ember.Mixin.create({
   normalize: function(type, hash) {
     hash = this._super(type, hash);
 
-    if (hash && hash.links) this.extractLinks(type.store, type, hash);
+    if (hash && hash.links) this.extractLinks(type, hash);
     this.camelizeKeys(hash);
 
     return hash;
